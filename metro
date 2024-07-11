@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: MIT
+// Generated with Spectral Syntax
+
+pragma solidity ^0.8.25;
+
+contract TrainSpeed {
+    uint256 public constant STATION_DISTANCE = 10; // in km
+
+    uint256 public enterTime;
+    uint256 public exitTime;
+
+    function recordEnterTime() public {
+        enterTime = block.timestamp;
+    }
+
+    function recordExitTime() public {
+        exitTime = block.timestamp;
+    }
+
+    function calculateSpeed() public view returns (uint256) {
+        require(enterTime > 0 && exitTime > 0, "Both enter and exit times must be recorded");
+        uint256 timeTaken = exitTime - enterTime;
+        return STATION_DISTANCE / timeTaken; // speed = distance / time
+    }
+}
